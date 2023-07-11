@@ -1,8 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
+import CustBtn from "../components/CustBtn";
+import CustInput from "../components/CustInput";
+
 function Login({ navigation }) {
   const handleLoginPress = () => {
+    navigation.navigate("Home");
+  };
+  const handleRegisterPress = () => {
     navigation.navigate("Register");
   };
   return (
@@ -10,7 +16,10 @@ function Login({ navigation }) {
       <View style={styles.title}>
         <Text style={styles.tilteText}>Login</Text>
       </View>
-      <TouchableOpacity style={styles.btn} onPress={handleLoginPress}>
+      <CustInput placeholder="E-Mail" />
+      <CustInput placeholder="Password" isSecure={true} />
+      <CustBtn title="Login" onButtonPress={handleLoginPress} />
+      <TouchableOpacity style={styles.btn} onPress={handleRegisterPress}>
         <Text style={styles.btnText}>Go to Register</Text>
       </TouchableOpacity>
     </View>

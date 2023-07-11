@@ -1,15 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import CustBtn from "../components/CustBtn";
 
 function Register({ navigation }) {
   const handleRegisterPress = () => {
     navigation.navigate("Login");
+  };
+  const handleHomePress = () => {
+    navigation.navigate("Home");
   };
   return (
     <View style={styles.container}>
       <View style={styles.title}>
         <Text style={styles.tilteText}>Register</Text>
       </View>
+      <CustBtn title="Home" onButtonPress={handleHomePress} />
       <TouchableOpacity style={styles.btn} onPress={handleRegisterPress}>
         <Text style={styles.btnText}>Go to Login</Text>
       </TouchableOpacity>
