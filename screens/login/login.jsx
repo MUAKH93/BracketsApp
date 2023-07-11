@@ -1,11 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import CustBtn from "../components/CustBtn";
 import CustInput from "../components/CustInput";
+import { showToast } from "../components/Toast";
+import CustText from "../components/CustText";
 
 function Login({ navigation }) {
   const handleLoginPress = () => {
+    showToast("success", "You are successfully Signed In", "top");
     navigation.navigate("Home");
   };
   const handleRegisterPress = () => {
@@ -18,10 +21,11 @@ function Login({ navigation }) {
       </View>
       <CustInput placeholder="E-Mail" />
       <CustInput placeholder="Password" isSecure={true} />
+      <CustText
+        textTitle={"Not Registered? => Registered First"}
+        onTextPressed={handleRegisterPress}
+      />
       <CustBtn title="Login" onButtonPress={handleLoginPress} />
-      <TouchableOpacity style={styles.btn} onPress={handleRegisterPress}>
-        <Text style={styles.btnText}>Go to Register</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -52,8 +56,8 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     marginTop: 0,
     backgroundColor: "#58fc85",
-    width: 200,
-    height: 100,
+    width: 150,
+    height: 50,
     borderRadius: 5,
     borderColor: "#917181",
     alignItems: "center",
