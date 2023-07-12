@@ -3,9 +3,10 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import { colors } from "../utils/theme";
 
 import CustBtn from "../components/CustBtn";
+import Header from "../components/Header";
 
 function Home({ navigation }) {
-  const handleBackPress = () => {
+  const handleBackIconPress = () => {
     navigation.goBack();
   };
   const handleFirstPress = () => {
@@ -13,6 +14,7 @@ function Home({ navigation }) {
   };
   return (
     <View style={styles.container}>
+      <Header title={"Home"} onIconPress={handleBackIconPress} />
       <View style={styles.logoTitleCon}>
         <Image
           source={require("../../assets/jajjaAcademyLogo.png")}
@@ -21,7 +23,7 @@ function Home({ navigation }) {
         <Text style={styles.titleText}>Jajja Academy</Text>
         <Text style={styles.sloganText}>Since 1970</Text>
       </View>
-      <CustBtn title="Go Back" onButtonPress={handleBackPress} />
+      {/* <CustBtn title="Go Back" onButtonPress={handleBackIconPress} /> */}
       <CustBtn
         title="Go Back to First Screen"
         onButtonPress={handleFirstPress}

@@ -1,75 +1,84 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import CustBtn from "../components/CustBtn";
 import CustInput from "../components/CustInput";
 import { showToast } from "../components/Toast";
 import CustText from "../components/CustText";
+import { modifiers, colors } from "../utils/theme";
+import Header from "../components/Header";
+import { db } from "../services/firebaseConfig";
+import { collection, getDoc } from "firebase/firestore/lite";
 
 function Login({ navigation }) {
+  const [showPass, setShowPass] = useState(false);
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+
+  const handleShowPass = () => {
+    if (showPass === true) {
+      setShowPass(false);
+    } else if (showPass === false) {
+      setShowPass(true);
+    }
+  };
   const handleLoginPress = () => {
-    showToast("success", "You are successfully Signed In", "top");
-    navigation.navigate("Home");
+     const getDocData = getDoc(userEmail, userPassword);
+      //user_email: userEmail,
+      //password: userPassword,
+      if(getDocData.exists()){
+        const docData = getDocData.data();
+      }
+    };
+    console.log(getDocData);
+    //showToast("success", "You are successfully Signed In", "top");
+    //navigation.navigate("Home");
   };
   const handleRegisterPress = () => {
     navigation.navigate("Register");
   };
+  const handleBackIconPress = () => {
+    navigation.goBack();
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.title}>
-        <Text style={styles.tilteText}>Login</Text>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, backgroundColor: colors.bgColor }}
+    >
+      <Header title={"Login"} onIconPress={handleBackIconPress} />
+      <View style={styles.container}>
+        <CustInput
+          placeholder="E-Mail"
+          showIcon={true}
+          iconName={"mail-outline"}
+          onChange={setUserEmail}
+        />
+        <CustInput
+          placeholder="Password"
+          isSecure={!showPass}
+          showIcon={true}
+          iconName={showPass === false ? "eye-outline" : "eye-off-outline"}
+          onIconPress={handleShowPass}
+          onChange={setUserPassword}
+        />
+        <CustText
+          textTitle={"Not Registered? Registered First"}
+          onTextPressed={handleRegisterPress}
+        />
+        <CustBtn title="Login" onButtonPress={handleLoginPress} />
       </View>
-      <CustInput placeholder="E-Mail" />
-      <CustInput placeholder="Password" isSecure={true} />
-      <CustText
-        textTitle={"Not Registered? => Registered First"}
-        onTextPressed={handleRegisterPress}
-      />
-      <CustBtn title="Login" onButtonPress={handleLoginPress} />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     backgroundColor: "#85cf58",
     width: "100%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-  },
-  btn: {
-    margin: 10,
-    backgroundColor: "#58fc85",
-    width: 140,
-    height: 60,
-    fontSize: 24,
-    fontWeight: "bold",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 3,
-    borderRadius: 5,
-    borderColor: "#619261",
-  },
-  title: {
-    marginBottom: 100,
-    marginTop: 0,
-    backgroundColor: "#58fc85",
-    width: 150,
-    height: 50,
-    borderRadius: 5,
-    borderColor: "#917181",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tilteText: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  btnText: {
-    fontSize: 18,
-    fontWeight: "bold",
+    paddingHorizontal: modifiers.containerPadding,
   },
 });
 

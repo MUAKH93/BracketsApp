@@ -1,15 +1,18 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-import { modifiers } from "../utils/theme";
+//import Icon from "react-native-ionicons";
+import { Ionicons } from "@expo/vector-icons";
+
+import { modifiers, colors } from "../utils/theme";
 
 function CustInput({
   placeholder = placeholder,
   onChange,
   isSecure,
-  //showIcon,
-  //iconName,
-  //onIconPress,
+  showIcon,
+  iconName,
+  onIconPress,
   keypadType,
 }) {
   return (
@@ -21,13 +24,20 @@ function CustInput({
         secureTextEntry={isSecure}
         keyboardType={keypadType}
       />
+      <Ionicons
+        style={styles.icon}
+        name={iconName}
+        size={20}
+        color={colors.green}
+        onPress={onIconPress}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: "95%",
+    width: "90%",
   },
   inputCon: {
     paddingHorizontal: 20,
@@ -37,6 +47,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: modifiers.itemMargin,
     flexDirection: "row",
+  },
+  icon: {
+    alignSelf: "center",
   },
 });
 

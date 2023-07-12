@@ -7,7 +7,7 @@ function showToast(tostType, toastMessage, toastPosition) {
     text1: "Hi",
     text2: toastMessage,
     position: toastPosition,
-    duration: 1000,
+    duration: 500,
   });
 }
 
